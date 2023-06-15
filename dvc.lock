@@ -7,10 +7,39 @@ stages:
       md5: b36d40ee963b3de7ba78e86d01b4004a
       size: 43689903
     - path: prepare.py
-      md5: 204cb0a0942ae482259a76d1784793f1
-      size: 784
+      md5: dc52ff56e864e4559f72320b3334b161
+      size: 719
     outs:
     - path: data/prepared
-      md5: 6e08fafed3ba7eca9dcaa27f99a62059.dir
-      size: 29484588
+      md5: b64cac86563ce15f459aacebe6fa3457.dir
+      size: 29484728
       nfiles: 3
+  normalize:
+    cmd: python3 normalize.py data/prepared/
+    deps:
+    - path: data/prepared/
+      md5: b64cac86563ce15f459aacebe6fa3457.dir
+      size: 29484728
+      nfiles: 3
+    - path: normalize.py
+      md5: a436d1b7b5bf104880f7c35403f8c93f
+      size: 668
+    outs:
+    - path: data/normalized/
+      md5: 35776eed6c81e8b91f6f9a20d15162e5.dir
+      size: 47608654
+      nfiles: 3
+  cluster:
+    cmd: python3 cluster.py
+    deps:
+    - path: cluster.py
+      md5: b10046a29ec6fca9a790fc3185f39580
+      size: 832
+    - path: data/normalized/
+      md5: 35776eed6c81e8b91f6f9a20d15162e5.dir
+      size: 47608654
+      nfiles: 3
+    outs:
+    - path: prc.json
+      md5: 2a9a0cf3e5945bff8cf91fea09b552f5
+      size: 117

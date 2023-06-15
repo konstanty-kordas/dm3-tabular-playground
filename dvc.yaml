@@ -6,3 +6,18 @@ stages:
     - prepare.py
     outs:
     - data/prepared
+  normalize:
+    cmd: python3 normalize.py data/prepared/
+    deps:
+    - data/prepared/
+    - normalize.py
+    outs:
+    - data/normalized/
+  cluster:
+    cmd: python3 cluster.py
+    deps:
+    - data/normalized/
+    - cluster.py
+    metrics:
+    - prc.json:
+        cache: false
